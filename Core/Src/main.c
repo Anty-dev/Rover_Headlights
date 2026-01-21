@@ -122,7 +122,8 @@ int main(void)
 
 	uint8_t RxReadOne[2];
 	uint8_t RxReadTwo[2];
-	RxReadOne[0], RxReadTwo[0] = 0b00001110;
+	RxReadOne[0] = 0b00001110;
+	RxReadTwo[0] = 0b00001110;
 	
 
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_14, GPIO_PIN_RESET); // set first potentiometer low
@@ -143,7 +144,7 @@ int main(void)
 
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_RESET); // set first potentiometer low
 
-    if (HAL_SPI_Transmit(&hspi2, frame,  RxReadTwo, 2, 100) == HAL_OK) {
+    if (HAL_SPI_TransmitReceive(&hspi2, frame,  RxReadTwo, 2, 100) == HAL_OK) {
 
   	  // data successfully transmitted
     }
@@ -678,4 +679,5 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
 
